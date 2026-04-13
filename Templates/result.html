@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Water Quality Prediction - Result</title>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <i class="fas fa-moon"></i>
+    </button>
+    <div class="container result-container">
+        <h1><i class="fas fa-chart-line"></i> Prediction Result</h1>
+        {% if prediction == 'Safe' %}
+            <div class="result-icon result-safe">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="result-text">Safe Drinking Water</div>
+            <p>Excellent! Water parameters indicate safe consumption. Confidence: <strong>{{ confidence }}%</strong></p>
+            <div class="confidence-bar">
+                <div class="confidence-fill safe" style="width: {{ confidence }}%"></div>
+            </div>
+            <div class="recommendations">
+                <h3>✅ Recommendations</h3>
+                <ul>
+                    <li>Regular monitoring advised.</li>
+                    <li>Suitable for drinking.</li>
+                </ul>
+            </div>
+        {% else %}
+            <div class="result-icon result-unsafe">
+                <i class="fas fa-times-circle"></i>
+            </div>
+            <div class="result-text">Unsafe Drinking Water</div>
+            <p>Alert! Parameters exceed safe limits. Confidence: <strong>{{ confidence }}%</strong></p>
+            <div class="confidence-bar">
+                <div class="confidence-fill unsafe" style="width: {{ confidence }}%"></div>
+            </div>
+            <div class="recommendations">
+                <h3>⚠️ Recommendations</h3>
+                <ul>
+                    <li>Boil or filter before use.</li>
+                    <li>Test specific contaminants.</li>
+                    <li>Consult local guidelines.</li>
+                </ul>
+            </div>
+        {% endif %}
+        
+        <div class="recap-table">
+            <h3><i class="fas fa-table"></i> Input Parameters Recap</h3>
+            <table>
+                {% for key, value in inputs.items() %}
+                <tr>
+                    <th>{{ key.replace('organicCarbon', 'Organic Carbon').replace('trihalomethanes', 'Trihalomethanes') | title }}:</th>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        
+        <div style="margin-top: 30px;">
+            <button id="shareBtn" class="back-btn" style="background: var(--secondary-green); margin-right: 10px;">
+                <i class="fas fa-share-alt"></i> Share Result
+            </button>
+            <a href="/" class="back-btn">← New Prediction</a>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Water Quality Prediction</title>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <i class="fas fa-moon"></i>
+    </button>
+    <div class="container">
+        <h2><i class="fas fa-tint"></i> Water Quality Prediction</h2>
+        <form id="predictionForm" action="/predict_waterQ" method="POST">
+            <div class="form-grid">
+                <div class="input-group ph-input">
+                    <label for="ph"><i class="fas fa-balance-scale"></i> pH</label>
+                    <input type="number" id="ph" name="ph" step="0.01" min="0" max="14" placeholder="7.0" required>
+                </div>
+                <div class="input-group">
+                    <label for="hardness"><i class="fas fa-hard-hat"></i> Hardness</label>
+                    <input type="number" id="hardness" name="hardness" step="0.01" min="0" placeholder="150" required>
+                </div>
+                <div class="input-group">
+                    <label for="solids"><i class="fas fa-cube"></i> Solids (TDS)</label>
+                    <input type="number" id="solids" name="solids" step="0.01" min="0" placeholder="500" required>
+                </div>
+                <div class="input-group">
+                    <label for="chloramines"><i class="fas fa-vial"></i> Chloramines</label>
+                    <input type="number" id="chloramines" name="chloramines" step="0.01" min="0" placeholder="5" required>
+                </div>
+                <div class="input-group">
+                    <label for="sulfate"><i class="fas fa-mountain"></i> Sulfate</label>
+                    <input type="number" id="sulfate" name="sulfate" step="0.01" min="0" placeholder="200" required>
+                </div>
+                <div class="input-group">
+                    <label for="conductivity"><i class="fas fa-bolt"></i> Conductivity</label>
+                    <input type="number" id="conductivity" name="conductivity" step="0.01" min="0" placeholder="400" required>
+                </div>
+                <div class="input-group">
+                    <label for="organicCarbon"><i class="fas fa-leaf"></i> Organic Carbon</label>
+                    <input type="number" id="organicCarbon" name="organicCarbon" step="0.01" min="0" max="30" placeholder="10" required>
+                </div>
+                <div class="input-group">
+                    <label for="trihalomethanes"><i class="fas fa-flask"></i> Trihalomethanes</label>
+                    <input type="number" id="trihalomethanes" name="trihalomethanes" step="0.01" min="0" placeholder="50" required>
+                </div>
+                <div class="input-group">
+                    <label for="turbidity"><i class="fas fa-cloud-sun-rain"></i> Turbidity</label>
+                    <input type="number" id="turbidity" name="turbidity" step="0.01" min="0" max="10" placeholder="3" required>
+                </div>
+            </div>
+            <input type="submit" value="Predict Water Quality" id="submitBtn">
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+
