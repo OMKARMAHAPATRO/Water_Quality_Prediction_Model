@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify, url_for
+import os
 import pandas as pd
 import joblib
 
@@ -44,4 +45,4 @@ def predict_waterQ():
     return render_template('result.html', prediction=prediction_new, confidence=round(confidence, 2), inputs=inputs)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 8080)), debug=False)
